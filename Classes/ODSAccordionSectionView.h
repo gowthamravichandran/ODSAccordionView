@@ -26,5 +26,7 @@
                      andView:(UIView *)sectionView
                 sectionStyle:(ODSAccordionSectionStyle *)sectionStyle
                     collapse:(BOOL)collapse NS_DESIGNATED_INITIALIZER;
+-(void)collapseSectionAnimated:(BOOL)animated;
+-(void)expandSectionAnimated:(BOOL)animated;
 
 @end

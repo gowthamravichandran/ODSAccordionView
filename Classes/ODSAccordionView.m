@@ -90,6 +90,18 @@
     }
 }
 
+-(void) collapseOtherHeaders:(ODSAccordionSectionView *)expandedSection {
+    if (_sectionStyle.collapseOtherHeaders) {
+        for (ODSAccordionSectionView *section in _sectionViews){
+            if ([expandedSection isEqual:section])  {
+                NSLog(@"found the right object");
+            } else {
+            [section collapseSectionAnimated:YES];
+            }
+        }
+    }
+}
+
 -(void)preventSectionHeaderFromBeingScrolledOutOfViewport {
     for (ODSAccordionSectionView *section in _sectionViews){
         CGPoint contentOffsetInSection = [self convertPoint:self.contentOffset toView:section];
@@ -130,7 +142,9 @@
         [UIView animateWithDuration:_sectionStyle.animationDuration animations:^{
             [self updateViewLayout];
             if (changedSection.isExpanded){
+                [self collapseOtherHeaders:changedSection];
                 [self makeSureSomeOfTheExpandedContentIsVisible:changedSection];
+                
             }
         } completion:^(BOOL finished){
             [self flashScrollIndicators];
